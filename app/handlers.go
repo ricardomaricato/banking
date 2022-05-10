@@ -1,7 +1,9 @@
 package app
 
 import (
+	"encoding/xml"
 	"fmt"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
@@ -21,4 +23,21 @@ func getAllCustomers(w http.ResponseWriter, r *http.Request) {
 		{"Liliam", "Rancharia", "19760-000"},
 	}
 
+	if r.Header.Get("Content-Type") == "application/xml" {
+		w.Header().Add("Content-Type", "application/xml")
+		xml.NewEncoder(w).Encode(customers)
+	} else {
+		w.Header().Add("Content-Type", "application/json")
+	}
+}
+
+func createCustomer(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Post request received")
+}
+
+func getCustomer(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["customer_id"]
+
+	fmt.Println(id)
 }
