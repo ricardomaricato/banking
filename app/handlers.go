@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/ricardomaricato/banking/service"
 	"net/http"
 )
 
@@ -13,15 +14,21 @@ type Customer struct {
 	ZipCode string `json:"zip_code" xml:"zipCode"`
 }
 
+type CustomerHandlers struct {
+	service service.CustomerService
+}
+
 func greet(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Hello World!")
 }
 
-func getAllCustomers(w http.ResponseWriter, r *http.Request) {
-	customers := []Customer{
-		{"Ricardo", "Quatá", "19780-000"},
-		{"Liliam", "Rancharia", "19760-000"},
-	}
+func (ch *CustomerHandlers) getAllCustomers(w http.ResponseWriter, r *http.Request) {
+	//customers := []Customer{
+	//	{"Ricardo", "Quatá", "19780-000"},
+	//	{"Liliam", "Rancharia", "19760-000"},
+	//}
+
+	customers, _ := ch.service.GetAllCustomer()
 
 	if r.Header.Get("Content-Type") == "application/xml" {
 		w.Header().Add("Content-Type", "application/xml")
