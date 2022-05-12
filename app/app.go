@@ -1,14 +1,35 @@
 package app
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/ricardomaricato/banking/domain"
 	"github.com/ricardomaricato/banking/service"
 	"log"
 	"net/http"
+	"os"
 )
 
+func sanityCheck() {
+	envProps := []string{
+		"SERVER_ADDRESS",
+		"SERVER_PORT",
+		"DB_USER",
+		"DB_PASSWD",
+		"DB_ADDR",
+		"DB_PORT",
+		"DB_NAME",
+	}
+	for _, k := range envProps {
+		if os.Getenv(k) == "" {
+			log.Fatal(fmt.Sprintf("Environment variable %s not defined. Terminating application...", k))
+		}
+	}
+}
+
 func Start() {
+
+	sanityCheck()
 
 	//mux := http.NewServeMux()
 	router := mux.NewRouter()
@@ -25,5 +46,7 @@ func Start() {
 	router.HandleFunc("/greet", greet).Methods(http.MethodGet)
 
 	// starting server
-	log.Fatal(http.ListenAndServe("localhost:8000", router))
+	address := os.Getenv("SERVER_ADDRESS")
+	port := os.Getenv("SERVER_PORT")
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", address, port), router))
 }
