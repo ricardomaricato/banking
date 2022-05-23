@@ -1,10 +1,10 @@
 package service
 
 import (
+	"github.com/ashishjuyal/banking-lib/errs"
 	_ "github.com/golang/mock/mockgen/model"
 	"github.com/ricardomaricato/banking/domain"
 	"github.com/ricardomaricato/banking/dto"
-	"github.com/ricardomaricato/banking/errs"
 )
 
 //go:generate mockgen -destination=../mocks/service/mockCustomerService.go -package=service github.com/ricardomaricato/banking/service CustomerService

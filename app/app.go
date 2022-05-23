@@ -2,10 +2,10 @@ package app
 
 import (
 	"fmt"
+	"github.com/ashishjuyal/banking-lib/logger"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 	"github.com/ricardomaricato/banking/domain"
-	"github.com/ricardomaricato/banking/logger"
 	"github.com/ricardomaricato/banking/service"
 	"log"
 	"net/http"

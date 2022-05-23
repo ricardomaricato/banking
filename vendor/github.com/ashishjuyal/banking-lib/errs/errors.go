@@ -47,3 +47,4 @@ func NewAuthorizationError(message string) *AppError {
 		Code:    http.StatusForbidden,
 	}
 }
+
